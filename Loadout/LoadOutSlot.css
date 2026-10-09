@@ -1,0 +1,87 @@
+/* Loadout/LoadOutSlot.css = Styles specifically for the Main/Sub weapon cards (Middle Column) */
+
+.loadout-weapon-column {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    min-height: 0;
+    overflow-y: auto;
+    padding-right: 4px;
+}
+
+.loadout-weapon-column::-webkit-scrollbar { width: 8px; }
+.loadout-weapon-column::-webkit-scrollbar-thumb { background: rgba(0, 255, 136, 0.22); border-radius: 999px; }
+.loadout-weapon-column::-webkit-scrollbar-track { background: rgba(255, 255, 255, 0.04); }
+
+.loadout-weapon-card {
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(0, 255, 136, 0.10);
+    border-radius: 12px;
+    box-shadow: 0 12px 34px rgba(0, 0, 0, 0.38);
+    padding: 14px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    cursor: pointer;
+    transition: all 0.15s ease;
+}
+
+.loadout-weapon-card:hover {
+    border-color: rgba(0, 255, 136, 0.45);
+    transform: translateY(-2px);
+}
+
+.loadout-weapon-card.empty {
+    border-style: dashed;
+    border-color: rgba(255, 255, 255, 0.14);
+    background: rgba(255, 255, 255, 0.02);
+}
+
+.loadout-weapon-card-header {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 10px;
+}
+
+.loadout-weapon-card-name {
+    font-size: 1.05rem;
+    font-weight: 900;
+    color: #ffffff;
+}
+
+.loadout-weapon-card-type {
+    color: #9fb6aa;
+    font-size: 0.85rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    white-space: nowrap;
+}
+
+.loadout-weapon-card-image-wrap {
+    height: 120px;
+    display: grid;
+    place-items: center;
+    background: rgba(0, 0, 0, 0.28);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.loadout-weapon-card-image {
+    max-width: 92%;
+    max-height: 86%;
+    object-fit: contain;
+}
+
+.loadout-weapon-card-placeholder {
+    color: #66796f;
+    font-size: 0.9rem;
+    font-weight: 700;
+}
+
+.loadout-weapon-card-status {
+    color: #9fb6aa;
+    font-size: 0.82rem;
+}

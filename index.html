@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ApexStrike.io</title>
+
+    <link rel="stylesheet" href="/HomePage/HomePage.css">
+    <link rel="stylesheet" href="/Market/Market.css">
+    <link rel="stylesheet" href="/HealthBar/HealthBar.css">
+    <link rel="stylesheet" href="/Respawn/Respawn.css">
+    <link rel="stylesheet" href="/SlotBox/SlotBox.css">
+
+    <!-- Loadout System CSS -->
+    <link rel="stylesheet" href="/Loadout/LoadOut.css">
+    <link rel="stylesheet" href="/Loadout/LoadOutSlot.css">
+    <link rel="stylesheet" href="/Loadout/SelectWeapon.css">
+
+    <!-- In-Game Loadout CSS -->
+    <link rel="stylesheet" href="/InGameLoadout/InGameLoadout.css">
+</head>
+<body>
+
+    <!-- HOME SCREEN UI -->
+    <div id="home-screen">
+        <h1 class="game-title">ApexStrike</h1>
+
+        <div class="input-group">
+            <input type="text" id="username-input" placeholder="Enter Username" maxlength="15" autocomplete="off">
+            <button id="quickplay-btn" type="button">Quick Play</button>
+
+            <div class="home-action-row">
+                <button id="market-btn" type="button">Market</button>
+                <button id="loadout-btn" type="button">Loadout</button>
+            </div>
+
+            <div id="error-msg" class="error-msg"></div>
+        </div>
+    </div>
+
+    <!-- MARKET SCREEN UI -->
+    <section id="market-screen" class="market-screen">
+        <div class="market-container">
+            <header class="market-header">
+                <div class="market-header-left">
+                    <button id="market-back-btn" class="market-back-btn" type="button">← Back</button>
+
+                    <div>
+                        <h1 class="market-title">Market</h1>
+                        <div class="market-subtitle">Sell weapons, manage listings, and browse player offers.</div>
+                    </div>
+                </div>
+
+                <div class="market-wallet">
+                    <span class="market-wallet-label">Credits</span>
+                    <span id="market-credits" class="market-wallet-value">0</span>
+                </div>
+            </header>
+
+            <nav class="market-tabs">
+                <button class="market-tab active" data-market-tab="sell">Sell Weapons</button>
+                <button class="market-tab" data-market-tab="browse">Browse</button>
+                <button class="market-tab" data-market-tab="listings">My Listings</button>
+            </nav>
+
+            <main id="market-content" class="market-content">
+                <!-- SELL TAB -->
+                <section id="market-sell-panel" class="market-panel active">
+                    <form id="market-sell-form" class="market-sell-form">
+                        <div class="market-field">
+                            <label class="market-label" for="market-weapon-select">Weapon</label>
+                            <select id="market-weapon-select" class="market-select">
+                                <option value="">Select a weapon</option>
+                            </select>
+                        </div>
+
+                        <div class="market-field">
+                            <label class="market-label" for="market-price-input">Price</label>
+                            <input id="market-price-input" class="market-input" type="number" min="1" placeholder="Enter price">
+                        </div>
+
+                        <div class="market-field">
+                            <button type="submit" class="market-btn primary">List Weapon</button>
+                        </div>
+                    </form>
+
+                    <div id="market-inventory-grid" class="market-grid">
+                        <div class="market-empty">
+                            <div class="market-empty-title">No weapons in inventory</div>
+                            <div>Weapons you own will appear here so you can sell them.</div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- BROWSE TAB -->
+                <section id="market-browse-panel" class="market-panel">
+                    <div class="market-toolbar">
+                        <input id="market-search" class="market-input" type="text" placeholder="Search weapons...">
+
+                        <select id="market-sort" class="market-select">
+                            <option value="newest">Newest</option>
+                            <option value="price-low">Price: Low to High</option>
+                            <option value="price-high">Price: High to Low</option>
+                        </select>
+
+                        <button id="market-refresh-btn" class="market-btn secondary">Refresh</button>
+                    </div>
+
+                    <div id="market-listing-grid" class="market-grid">
+                        <div class="market-empty">
+                            <div class="market-empty-title">No market listings yet</div>
+                            <div>Weapons listed by players will appear here.</div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- MY LISTINGS TAB -->
+                <section id="market-listings-panel" class="market-panel">
+                    <div id="market-my-listings-grid" class="market-grid">
+                        <div class="market-empty">
+                            <div class="market-empty-title">No active listings</div>
+                            <div>Weapons you put up for sale will appear here.</div>
+                        </div>
+                    </div>
+                </section>
+            </main>
+        </div>
+    </section>
+
+    <!-- LOADOUT SCREEN UI -->
+    <section id="loadout-screen" class="loadout-screen hidden">
+        <div class="loadout-container">
+            <header class="loadout-header">
+                <div class="loadout-header-left">
+                    <button id="loadout-back-btn" class="loadout-back-btn" type="button">← Back</button>
+                <div>
+                    <h1 class="loadout-title">Loadout</h1>
+                    <div class="loadout-subtitle">Pick a slot on the left — hover a weapon to inspect it.</div>
+                </div>
+            </div>
+        </header>
+
+        <div class="loadout-layout">
+            <!-- LEFT: LOADOUT SLOT RAIL -->
+            <aside class="loadout-slot-rail" id="loadout-list">
+                <button class="loadout-rail-card active" type="button" data-loadout-number="1" id="loadout-entry-1">
+                    <span class="loadout-rail-card-placeholder">—</span>
+                    <span class="loadout-rail-card-number">1</span>
+                    <span class="loadout-rail-card-star">★</span>
+                </button>
+
+                <button class="loadout-rail-card" type="button" data-loadout-number="2" id="loadout-entry-2">
+                    <span class="loadout-rail-card-placeholder">—</span>
+                    <span class="loadout-rail-card-number">2</span>
+                    <span class="loadout-rail-card-star">★</span>
+                </button>
+
+                <button class="loadout-rail-card" type="button" data-loadout-number="3" id="loadout-entry-3">
+                    <span class="loadout-rail-card-placeholder">—</span>
+                    <span class="loadout-rail-card-number">3</span>
+                    <span class="loadout-rail-card-star">★</span>
+                </button>
+
+                <button class="loadout-rail-card" type="button" data-loadout-number="4" id="loadout-entry-4">
+                    <span class="loadout-rail-card-placeholder">—</span>
+                    <span class="loadout-rail-card-number">4</span>
+                    <span class="loadout-rail-card-star">★</span>
+                </button>
+
+                <button class="loadout-rail-card" type="button" data-loadout-number="5" id="loadout-entry-5">
+                    <span class="loadout-rail-card-placeholder">—</span>
+                    <span class="loadout-rail-card-number">5</span>
+                    <span class="loadout-rail-card-star">★</span>
+                </button>
+            </aside>
+
+            <!-- MIDDLE: MAIN / SUB WEAPON CARDS (Styled by LoadOutSlot.css) -->
+            <div class="loadout-weapon-column">
+                <div class="loadout-weapon-card empty" id="loadout-primary-card" data-slot-type="primary">
+                    <div class="loadout-weapon-card-header">
+                        <span class="loadout-weapon-card-name" id="loadout-primary-name">Empty</span>
+                        <span class="loadout-weapon-card-type">Main Weapon</span>
+                    </div>
+
+                    <div class="loadout-weapon-card-image-wrap">
+                        <img class="loadout-weapon-card-image" id="loadout-primary-image" alt="" hidden>
+                        <span class="loadout-weapon-card-placeholder" id="loadout-primary-placeholder">No weapon equipped</span>
+                    </div>
+
+                    <div class="loadout-weapon-card-status" id="loadout-primary-status">Click to assign a weapon</div>
+                </div>
+
+                <div class="loadout-weapon-card empty" id="loadout-secondary-card" data-slot-type="secondary">
+                    <div class="loadout-weapon-card-header">
+                        <span class="loadout-weapon-card-name" id="loadout-secondary-name">Empty</span>
+                        <span class="loadout-weapon-card-type">Sub Weapon</span>
+                    </div>
+
+                    <div class="loadout-weapon-card-image-wrap">
+                        <img class="loadout-weapon-card-image" id="loadout-secondary-image" alt="" hidden>
+                        <span class="loadout-weapon-card-placeholder" id="loadout-secondary-placeholder">No weapon equipped</span>
+                    </div>
+
+                    <div class="loadout-weapon-card-status" id="loadout-secondary-status">Click to assign a weapon</div>
+                </div>
+            </div>
+
+            <!-- RIGHT: CLEAN HOVER PREVIEW STAGE -->
+            <div class="loadout-preview-stage" id="loadout-preview-stage">
+                <img class="loadout-preview-image" id="loadout-preview-image" alt="">
+                <div class="loadout-preview-type" id="loadout-preview-type"></div>
+                <div class="loadout-preview-name" id="loadout-preview-name"></div>
+                <div class="loadout-preview-hint" id="loadout-preview-hint">Hover a weapon to inspect</div>
+            </div>
+        </div>
+
+        <footer class="loadout-footer-note">
+            Select a Main or Sub card to change the weapon in that slot. Press 1-5 to jump between slots.
+        </footer>
+    </div>
+</section>
+
+    <!-- SELECT WEAPON SCREEN UI -->
+    <section id="select-weapon-screen" class="select-weapon-screen hidden">
+        <div class="select-weapon-container">
+            <header class="select-weapon-header">
+                <div class="select-weapon-header-left">
+                    <button id="select-weapon-back-btn" class="select-weapon-back-btn" type="button">← Back</button>
+
+                    <div>
+                        <h1 id="select-weapon-title" class="select-weapon-title">Select Weapon</h1>
+                        <div id="select-weapon-subtitle" class="select-weapon-subtitle">
+                            Choose a weapon for this loadout slot.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="select-weapon-header-actions">
+                    <button id="select-weapon-confirm-btn" class="select-weapon-btn primary" type="button" disabled>
+                        Confirm
+                    </button>
+                </div>
+            </header>
+
+            <div class="select-weapon-toolbar">
+                <input
+                    id="select-weapon-search"
+                    class="select-weapon-input"
+                    type="text"
+                    placeholder="Search weapons..."
+                    autocomplete="off"
+                    disabled
+                >
+
+                <select id="select-weapon-filter" class="select-weapon-select" disabled>
+                    <option value="all">All Weapons</option>
+                    <option value="smg">SMG</option>
+                    <option value="sniper">Sniper</option>
+                </select>
+            </div>
+
+            <div class="select-weapon-content">
+                <div class="select-weapon-panel">
+                    <div class="select-weapon-panel-header">
+                        <h2 class="select-weapon-panel-title">Available Weapons</h2>
+                        <div class="select-weapon-panel-sub">
+                            Every weapon currently registered in the game. Ownership is not checked yet.
+                        </div>
+                    </div>
+
+                    <div class="select-weapon-panel-body">
+                        <div id="select-weapon-grid" class="select-weapon-grid"></div>
+                    </div>
+                </div>
+            </div>
+
+            <footer class="select-weapon-footer-note">
+                Select Weapon lists the whole registry - inventory ownership is not checked yet.
+            </footer>
+        </div>
+    </section>
+
+    <!-- IN-GAME LOADOUT SCREEN UI -->
+    <section id="ingame-loadout-screen" class="ingame-loadout-screen hidden">
+        <div class="ingame-loadout-container">
+            <header class="ingame-loadout-header">
+                <div class="ingame-loadout-header-left">
+                    <button id="ingame-loadout-back-btn" class="ingame-loadout-back-btn" type="button">← Back</button>
+                    <div>
+                        <h1 class="ingame-loadout-title">Loadout</h1>
+                        <div class="ingame-loadout-subtitle">
+                            Equip one of your saved loadouts. Weapon editing is only available on the home screen.
+                        </div>
+                    </div>
+                </div>
+            </header>
+
+            <div id="ingame-loadout-grid" class="ingame-loadout-grid"></div>
+
+            <footer class="ingame-loadout-footer-note">
+                In-game Loadout only allows equipping saved Loadout Slots 1-5.
+            </footer>
+        </div>
+    </section>
+
+    <!-- GAME SCREEN UI -->
+    <div id="game-screen">
+        <!-- SLOTBOX HUD -->
+        <div id="slotbox-hud">
+            <div class="slotbox" data-slot="1">
+                <span class="slotbox-key">1</span>
+                <span class="slotbox-name">Slot 1</span>
+            </div>
+
+            <div class="slotbox" data-slot="2">
+                <span class="slotbox-key">2</span>
+                <span class="slotbox-name">Slot 2</span>
+            </div>
+
+            <div class="slotbox" data-slot="3">
+                <span class="slotbox-key">3</span>
+                <span class="slotbox-name">Slot 3</span>
+            </div>
+        </div>
+
+        <!-- Matchmaking status -->
+        <div
+            id="matchmaking-status"
+            style="position: absolute; top: 20px; left: 50%; transform: translateX(-50%); color: white; font-size: 24px; font-family: sans-serif; display: none; text-align: center;"
+        >
+            <span id="matchmaking-text">Searching...</span>
+            <br>
+
+            <button
+                id="cancel-btn"
+                style="margin-top: 15px; padding: 10px 20px; font-size: 16px; cursor: pointer; background: #ff4444; color: white; border: none; border-radius: 4px;"
+            >
+                Cancel
+            </button>
+        </div>
+
+        <!-- Match Countdown Overlay -->
+        <div id="match-countdown" class="match-countdown" style="display: none;">
+            <span id="match-countdown-text">10</span>
+        </div>
+
+        <!-- In-Game Loadout Button -->
+        <button id="ingame-loadout-open-btn" class="ingame-loadout-open-btn" type="button" style="display: none;">Loadout</button>
+
+        <canvas id="gameCanvas"></canvas>
+    </div>
+
+    <!-- HP / DEATH VISUAL OVERLAYS -->
+    <div id="damage-overlay"></div>
+
+    <div id="death-screen">
+        <h1 id="death-title">ELIMINATED</h1>
+        <p id="death-killer">Eliminated by Enemy</p>
+        <p id="death-timer">Respawning in 7...</p>
+        
+        <!-- NEW: Loadout button for the death screen -->
+        <button id="death-loadout-btn" class="death-loadout-btn">Change Loadout</button>
+        
+        <p id="death-prompt" class="hidden">Press any key to respawn</p>
+    </div>
+
+    <!-- Socket.io client library -->
+    <script src="/socket.io/socket.io.js"></script>
+
+    <!-- Main Entry Point -->
+    <script type="module" src="/Client/Client.js"></script>
+</body>
+</html>

@@ -1,0 +1,489 @@
+/* Loadout/SelectWeapon.css = Visual foundation for the Select Weapon screen */
+
+/* ==========================================
+   TEMPORARY: BLANK OUT LOADOUT WEAPONS PANEL
+   The old Loadout screen has an empty-state box:
+   "No weapons available"
+   For now, hide it so the panel is blank.
+   ========================================== */
+
+#loadout-screen .loadout-empty {
+    display: none !important;
+}
+
+#loadout-screen .loadout-inventory-grid {
+    min-height: 100%;
+}
+
+#loadout-screen .loadout-panel-body {
+    min-height: 100%;
+}
+
+/* ==========================================
+   SELECT WEAPON SCREEN OVERLAY
+   This screen will open when the user clicks
+   a Loadout slot and needs to choose a weapon.
+   ========================================== */
+
+#select-weapon-screen {
+    --select-weapon-green: #00ff88;
+    --select-weapon-cyan: #6ee7ff;
+    --select-weapon-gold: #ffd166;
+    --select-weapon-panel: rgba(255, 255, 255, 0.045);
+    --select-weapon-border: rgba(0, 255, 136, 0.12);
+    --select-weapon-text-dim: #9fb6aa;
+    --select-weapon-shadow: 0 12px 34px rgba(0, 0, 0, 0.38);
+
+    display: none;
+    position: fixed;
+    inset: 0;
+    z-index: 53;
+    background: radial-gradient(
+        circle at top,
+        rgba(14, 32, 25, 0.98) 0%,
+        rgba(12, 12, 12, 0.98) 55%,
+        rgba(4, 4, 4, 0.99) 100%
+    );
+    backdrop-filter: blur(8px);
+    color: #ffffff;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+#select-weapon-screen.active {
+    display: flex;
+}
+
+#select-weapon-screen.hidden {
+    display: none !important;
+}
+
+.select-weapon-screen {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
+
+.select-weapon-screen button,
+.select-weapon-screen input,
+.select-weapon-screen select {
+    font-family: inherit;
+}
+
+/* ==========================================
+   MAIN LAYOUT
+   ========================================== */
+
+.select-weapon-container {
+    width: min(1280px, 100%);
+    height: 100%;
+    margin: 0 auto;
+    padding: 22px;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+}
+
+/* ==========================================
+   HEADER
+   ========================================== */
+
+.select-weapon-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    padding-bottom: 16px;
+    border-bottom: 1px solid var(--select-weapon-border);
+}
+
+.select-weapon-header-left {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    min-width: 0;
+}
+
+.select-weapon-title {
+    margin: 0;
+    font-size: 2.3rem;
+    font-weight: 900;
+    color: var(--select-weapon-green);
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    text-shadow: 0 0 20px rgba(0, 255, 136, 0.45);
+}
+
+.select-weapon-subtitle {
+    margin-top: 4px;
+    color: var(--select-weapon-text-dim);
+    font-size: 0.95rem;
+}
+
+.select-weapon-header-actions {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+/* ==========================================
+   BUTTONS
+   ========================================== */
+
+.select-weapon-back-btn,
+.select-weapon-btn {
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    font-weight: 800;
+}
+
+.select-weapon-back-btn {
+    padding: 12px 18px;
+    font-size: 1rem;
+    color: #ffffff;
+    background: rgba(255, 255, 255, 0.06);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.select-weapon-back-btn:hover,
+.select-weapon-btn:hover {
+    transform: translateY(-1px);
+}
+
+.select-weapon-btn {
+    padding: 12px 18px;
+    font-size: 1rem;
+}
+
+.select-weapon-btn.primary {
+    background: var(--select-weapon-green);
+    color: #08130d;
+    box-shadow: 0 0 18px rgba(0, 255, 136, 0.22);
+}
+
+.select-weapon-btn.secondary {
+    background: transparent;
+    color: #ffffff;
+    border: 1px solid var(--select-weapon-border);
+}
+
+.select-weapon-btn.danger {
+    background: rgba(255, 68, 68, 0.12);
+    color: #ff8080;
+    border: 1px solid rgba(255, 68, 68, 0.32);
+}
+
+.select-weapon-btn.small {
+    padding: 10px 12px;
+    font-size: 0.95rem;
+}
+
+.select-weapon-btn:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+    transform: none;
+    box-shadow: none;
+}
+
+/* ==========================================
+   TOOLBAR
+   Future search / filter area
+   ========================================== */
+
+.select-weapon-toolbar {
+    display: grid;
+    grid-template-columns: 1fr 220px;
+    gap: 12px;
+}
+
+.select-weapon-input,
+.select-weapon-select {
+    width: 100%;
+    min-height: 48px;
+    padding: 0 14px;
+    box-sizing: border-box;
+    border: 1px solid rgba(255, 255, 255, 0.09);
+    border-radius: 10px;
+    background: rgba(0, 0, 0, 0.22);
+    color: #ffffff;
+    outline: none;
+    transition: all 0.2s ease;
+}
+
+.select-weapon-input:focus,
+.select-weapon-select:focus {
+    border-color: var(--select-weapon-green);
+    box-shadow: 0 0 14px rgba(0, 255, 136, 0.18);
+}
+
+.select-weapon-input::placeholder {
+    color: rgba(255, 255, 255, 0.35);
+}
+
+/* ==========================================
+   CONTENT PANEL
+   ========================================== */
+
+.select-weapon-content {
+    flex: 1;
+    min-height: 0;
+    display: flex;
+    flex-direction: column;
+}
+
+.select-weapon-panel {
+    flex: 1;
+    min-height: 0;
+    background: var(--select-weapon-panel);
+    border: 1px solid var(--select-weapon-border);
+    border-radius: 16px;
+    box-shadow: var(--select-weapon-shadow);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+}
+
+.select-weapon-panel-header {
+    padding: 16px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.select-weapon-panel-title {
+    margin: 0;
+    font-size: 1.15rem;
+    font-weight: 900;
+    color: #ffffff;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.select-weapon-panel-sub {
+    margin-top: 6px;
+    color: var(--select-weapon-text-dim);
+    font-size: 0.92rem;
+}
+
+.select-weapon-panel-body {
+    padding: 16px;
+    overflow: auto;
+    min-height: 0;
+    flex: 1;
+}
+
+/* Scrollbar styling */
+.select-weapon-panel-body::-webkit-scrollbar {
+    width: 10px;
+}
+
+.select-weapon-panel-body::-webkit-scrollbar-thumb {
+    background: rgba(0, 255, 136, 0.22);
+    border-radius: 999px;
+}
+
+.select-weapon-panel-body::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.04);
+}
+
+/* ==========================================
+   WEAPON GRID
+   ========================================== */
+
+.select-weapon-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+    gap: 16px;
+    padding-bottom: 8px;
+}
+
+/* ==========================================
+   WEAPON CARD
+   ========================================== */
+
+.select-weapon-card {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    padding: 16px;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(0, 255, 136, 0.08);
+    border-radius: 16px;
+    box-shadow: var(--select-weapon-shadow);
+    transition: all 0.2s ease;
+    cursor: pointer;
+}
+
+.select-weapon-card:hover {
+    transform: translateY(-4px);
+    border-color: rgba(0, 255, 136, 0.45);
+    box-shadow:
+        0 12px 34px rgba(0, 0, 0, 0.38),
+        0 0 18px rgba(0, 255, 136, 0.12);
+}
+
+.select-weapon-card.selected {
+    border-color: rgba(0, 255, 136, 0.65);
+    box-shadow: 0 0 22px rgba(0, 255, 136, 0.16);
+}
+
+.select-weapon-card.disabled {
+    opacity: 0.45;
+    pointer-events: none;
+}
+
+.select-weapon-card-top {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 10px;
+}
+
+.select-weapon-name {
+    margin: 0;
+    font-size: 1.12rem;
+    font-weight: 900;
+}
+
+.select-weapon-type {
+    color: var(--select-weapon-text-dim);
+    font-size: 0.9rem;
+    margin-top: 4px;
+}
+
+/* ==========================================
+   BADGES
+   ========================================== */
+
+.select-weapon-badge {
+    padding: 5px 9px;
+    border-radius: 999px;
+    font-size: 0.72rem;
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: 0.6px;
+    white-space: nowrap;
+}
+
+.select-weapon-badge.smg {
+    background: rgba(110, 231, 255, 0.14);
+    color: #7dd3fc;
+}
+
+.select-weapon-badge.sniper {
+    background: rgba(0, 255, 136, 0.12);
+    color: #86efac;
+}
+
+.select-weapon-badge.selected {
+    background: rgba(0, 255, 136, 0.16);
+    color: #4ade80;
+}
+
+.select-weapon-badge.locked {
+    background: rgba(255, 255, 255, 0.08);
+    color: #9ca3af;
+}
+
+/* ==========================================
+   WEAPON IMAGE
+   ========================================== */
+
+.select-weapon-image-wrap {
+    height: 145px;
+    display: grid;
+    place-items: center;
+    background: rgba(0, 0, 0, 0.22);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    border-radius: 12px;
+    overflow: hidden;
+}
+
+.select-weapon-image {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+/* ==========================================
+   CARD BODY / ACTIONS
+   ========================================== */
+
+.select-weapon-body {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.select-weapon-status {
+    color: var(--select-weapon-text-dim);
+    font-size: 0.88rem;
+}
+
+.select-weapon-actions {
+    display: grid;
+    gap: 8px;
+    margin-top: auto;
+}
+
+/* ==========================================
+   EMPTY STATE
+   Optional for future use.
+   For now, the Loadout weapons panel is blank.
+   ========================================== */
+
+.select-weapon-empty {
+    padding: 60px 20px;
+    text-align: center;
+    color: #88a396;
+    border: 1px dashed rgba(0, 255, 136, 0.16);
+    border-radius: 16px;
+    background: rgba(255, 255, 255, 0.02);
+}
+
+.select-weapon-empty-title {
+    font-size: 1.3rem;
+    font-weight: 900;
+    color: #ffffff;
+    margin-bottom: 8px;
+}
+
+/* ==========================================
+   FOOTER NOTE
+   ========================================== */
+
+.select-weapon-footer-note {
+    color: var(--select-weapon-text-dim);
+    font-size: 0.88rem;
+    padding-bottom: 10px;
+}
+
+/* ==========================================
+   RESPONSIVE
+   ========================================== */
+
+@media (max-width: 900px) {
+    .select-weapon-toolbar {
+        grid-template-columns: 1fr;
+    }
+
+    .select-weapon-title {
+        font-size: 2rem;
+    }
+}
+
+@media (max-width: 600px) {
+    .select-weapon-container {
+        padding: 14px;
+    }
+
+    .select-weapon-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .select-weapon-title {
+        font-size: 1.7rem;
+        letter-spacing: 2px;
+    }
+}

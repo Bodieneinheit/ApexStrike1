@@ -1,0 +1,97 @@
+/* HomePage/HomePage.css */
+body {
+    margin: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #0d0d0d;
+    color: #ffffff;
+    overflow: hidden;
+}
+
+#home-screen {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    background: radial-gradient(circle at center, #1a2a22 0%, #0a0a0a 100%);
+}
+
+.game-title {
+    font-size: 5rem;
+    font-weight: 900;
+    color: #00ff88;
+    text-transform: uppercase;
+    letter-spacing: 4px;
+    text-shadow: 0 0 20px rgba(0, 255, 136, 0.6);
+    margin-bottom: 3rem;
+    margin-top: 0;
+}
+
+.input-group {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+}
+
+#username-input {
+    padding: 15px 20px;
+    font-size: 1.2rem;
+    border: 2px solid #333;
+    border-radius: 8px;
+    background-color: #1a1a1a;
+    color: #ffffff;
+    outline: none;
+    transition: all 0.3s ease;
+    width: 280px;
+    text-align: center;
+}
+
+#username-input:focus {
+    border-color: #00ff88;
+    box-shadow: 0 0 15px rgba(0, 255, 136, 0.3);
+}
+
+#quickplay-btn {
+    padding: 15px 50px;
+    font-size: 1.5rem;
+    font-weight: 800;
+    color: #0d0d0d;
+    background-color: #00ff88;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    box-shadow: 0 0 20px rgba(0, 255, 136, 0.4);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+#quickplay-btn:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 30px rgba(0, 255, 136, 0.7);
+}
+
+#quickplay-btn:active {
+    transform: scale(0.95);
+}
+
+.error-msg {
+    color: #ff4444;
+    font-size: 0.9rem;
+    margin-top: 10px;
+    display: none;
+    font-weight: bold;
+}
+
+/* Hide game screen by default */
+#game-screen {
+    display: none;
+    width: 100vw;
+    height: 100vh;
+}
+
+#gameCanvas {
+    display: block;
+    background-color: #2d4a3e;
+}

@@ -1,0 +1,104 @@
+/* Respawn/Respawn.css = Visuals for the death screen and respawn prompt */
+
+#death-screen {
+    position: fixed;
+    inset: 0;
+    background: rgba(10, 10, 10, 0.85);
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    z-index: 15;
+    color: #ffffff;
+    font-family: 'Segoe UI', sans-serif;
+    backdrop-filter: blur(6px);
+}
+
+#death-screen.active {
+    display: flex;
+    animation: fadeIn 0.3s ease-out;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+#death-title {
+    font-size: 5rem;
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: 6px;
+    color: #ff4444;
+    text-shadow: 0 0 40px rgba(255, 68, 68, 0.6);
+    margin: 0 0 10px 0;
+    animation: slideDown 0.5s ease-out;
+}
+
+@keyframes slideDown {
+    from { transform: translateY(-30px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+}
+
+#death-killer {
+    font-size: 1.5rem;
+    color: #cccccc;
+    margin: 0 0 30px 0;
+    font-weight: 600;
+}
+
+#death-timer {
+    font-size: 1.2rem;
+    color: #00ff88; /* ApexStrike Green */
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin: 0;
+}
+
+#death-prompt {
+    font-size: 1.4rem;
+    color: #ffffff;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    margin: 0;
+}
+
+#death-prompt.pulse {
+    animation: pulseText 1.5s infinite ease-in-out;
+}
+
+@keyframes pulseText {
+    0%, 100% { opacity: 0.5; transform: scale(1); }
+    50% { opacity: 1; transform: scale(1.05); text-shadow: 0 0 15px rgba(0, 255, 136, 0.8); }
+}
+
+.hidden {
+    display: none !important;
+}
+
+/* --- DEATH SCREEN LOADOUT BUTTON --- */
+.death-loadout-btn {
+    margin-top: 20px;
+    padding: 12px 28px;
+    font-size: 1.1rem;
+    font-weight: 800;
+    color: #08130d;
+    background: #00ff88;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    box-shadow: 0 0 20px rgba(0, 255, 136, 0.5);
+    transition: all 0.2s ease;
+    z-index: 20;
+}
+.death-loadout-btn:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 30px rgba(0, 255, 136, 0.8);
+}
+.death-loadout-btn:active {
+    transform: scale(0.98);
+}

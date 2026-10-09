@@ -1,0 +1,21 @@
+/* HealthBar/HealthBar.css = Visual feedback for taking damage and dying */
+
+/* Red vignette flash when taking damage */
+#damage-overlay {
+    position: fixed;
+    inset: 0;
+    background: radial-gradient(circle, transparent 40%, rgba(255, 0, 0, 0.4) 100%);
+    pointer-events: none;
+    opacity: 0;
+    z-index: 10;
+}
+
+/* Use animation instead of transition for rapid-fire stacking */
+#damage-overlay.active {
+    animation: damageFlash 0.25s ease-out forwards;
+}
+
+@keyframes damageFlash {
+    0% { opacity: 0.8; }
+    100% { opacity: 0; }
+}
